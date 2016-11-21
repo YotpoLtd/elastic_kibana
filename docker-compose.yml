@@ -26,3 +26,4 @@ services:
       - ./logstash:/config-dir
     ports:
       - 5960:5960
+      - 5960:5960/udp

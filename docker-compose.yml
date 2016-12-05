@@ -1,12 +1,23 @@
 version: '2'
-
+networks:
+  elk:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.27.0.0/16
+        ip_range: 172.27.5.0/24
+        gateway: 172.27.0.1
 services:
   elasticsearch:
     image: elasticsearch:2.3.4
     ports:
       - 9200:9200
+    networks:
+      - elk
 
   kibana:
+    networks:
+    - elk
     image: kibana:4.5.2
     ports:
       - 5601:5601
@@ -14,6 +25,8 @@ services:
       - elasticsearch
     depends_on:
       - elasticsearch
+    networks:
+      - elk
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
 
@@ -27,3 +40,5 @@ services:
     ports:
       - 5960:5960
       - 5960:5960/udp
+    networks:
+      - elk

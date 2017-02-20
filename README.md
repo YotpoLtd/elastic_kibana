@@ -9,7 +9,7 @@ cd elastic_kibana
 ```
 2. Build and add the images:
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 # Every time after reboot
